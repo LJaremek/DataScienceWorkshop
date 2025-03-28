@@ -1,0 +1,8 @@
+path: ../datasets/DOTAv1-vehicles
+train: images/train
+val: images/val
+
+nc: 2
+names:
+  0: large-vehicle
+  1: small-vehicle
