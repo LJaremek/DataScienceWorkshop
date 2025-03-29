@@ -1,0 +1,83 @@
+{
+  "stats": {
+    "mask_coverage_pct": 6.650886555345154,
+    "high_conf_mask_coverage_pct": 6.650886555345154,
+    "total_detections": 9,
+    "high_confidence_boxes": 9,
+    "low_confidence_boxes": 0,
+    "avg_confidence": 0.6975364022784762,
+    "min_confidence": 0.44824349880218506,
+    "max_confidence": 0.8252136707305908,
+    "median_confidence": 0.6931706070899963,
+    "avg_mask_ratio": 1.0,
+    "min_mask_ratio": 1.0,
+    "max_mask_ratio": 1.0,
+    "high_conf_avg_confidence": 0.6975364022784762,
+    "high_conf_avg_mask_ratio": 1.0,
+    "mask_ratio_distribution": {
+      "0-25%": 0,
+      "25-50%": 0,
+      "50-75%": 0,
+      "75-100%": 9
+    },
+    "class_distribution": {
+      "1": {
+        "count": 9,
+        "high_conf": 9,
+        "low_conf": 0
+      }
+    }
+  },
+  "parameters": {
+    "mask_threshold": 0.5,
+    "mask_low_confidence": 0.1
+  },
+  "high_confidence_boxes": [
+    {
+      "conf": 0.8252136707305908,
+      "mask_ratio": 1.0,
+      "cls": 1
+    },
+    {
+      "conf": 0.8069444298744202,
+      "mask_ratio": 1.0,
+      "cls": 1
+    },
+    {
+      "conf": 0.7744659781455994,
+      "mask_ratio": 1.0,
+      "cls": 1
+    },
+    {
+      "conf": 0.7617433071136475,
+      "mask_ratio": 1.0,
+      "cls": 1
+    },
+    {
+      "conf": 0.6931706070899963,
+      "mask_ratio": 1.0,
+      "cls": 1
+    },
+    {
+      "conf": 0.6795355677604675,
+      "mask_ratio": 1.0,
+      "cls": 1
+    },
+    {
+      "conf": 0.6616816520690918,
+      "mask_ratio": 1.0,
+      "cls": 1
+    },
+    {
+      "conf": 0.6268289089202881,
+      "mask_ratio": 1.0,
+      "cls": 1
+    },
+    {
+      "conf": 0.44824349880218506,
+      "mask_ratio": 1.0,
+      "cls": 1
+    }
+  ],
+  "low_confidence_boxes": []
+}

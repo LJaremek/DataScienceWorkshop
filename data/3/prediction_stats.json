@@ -1,0 +1,91 @@
+{
+  "stats": {
+    "mask_coverage_pct": 1.1473134084599053,
+    "high_conf_mask_coverage_pct": 1.1112472099733246,
+    "total_detections": 10,
+    "high_confidence_boxes": 8,
+    "low_confidence_boxes": 2,
+    "avg_confidence": 0.3935978800058365,
+    "min_confidence": 0.26965171098709106,
+    "max_confidence": 0.5975703001022339,
+    "median_confidence": 0.3895198404788971,
+    "avg_mask_ratio": 0.6919020772306556,
+    "min_mask_ratio": 0.11304347826086956,
+    "max_mask_ratio": 1.0,
+    "high_conf_avg_confidence": 0.38359459862113,
+    "high_conf_avg_mask_ratio": 0.8349761337183275,
+    "low_conf_avg_confidence": 0.4336110055446625,
+    "low_conf_avg_mask_ratio": 0.11960585127996748,
+    "mask_ratio_distribution": {
+      "0-25%": 2,
+      "25-50%": 0,
+      "50-75%": 4,
+      "75-100%": 4
+    },
+    "class_distribution": {
+      "1": {
+        "count": 10,
+        "high_conf": 8,
+        "low_conf": 2
+      }
+    }
+  },
+  "parameters": {
+    "mask_threshold": 0.5,
+    "mask_low_confidence": 0.1
+  },
+  "high_confidence_boxes": [
+    {
+      "conf": 0.4685424566268921,
+      "mask_ratio": 1.0,
+      "cls": 1
+    },
+    {
+      "conf": 0.46415501832962036,
+      "mask_ratio": 1.0,
+      "cls": 1
+    },
+    {
+      "conf": 0.40587204694747925,
+      "mask_ratio": 1.0,
+      "cls": 1
+    },
+    {
+      "conf": 0.4015622138977051,
+      "mask_ratio": 0.7411764705882353,
+      "cls": 1
+    },
+    {
+      "conf": 0.3774774670600891,
+      "mask_ratio": 0.5620915032679739,
+      "cls": 1
+    },
+    {
+      "conf": 0.3464377522468567,
+      "mask_ratio": 0.689041095890411,
+      "cls": 1
+    },
+    {
+      "conf": 0.31119632720947266,
+      "mask_ratio": 1.0,
+      "cls": 1
+    },
+    {
+      "conf": 0.2935135066509247,
+      "mask_ratio": 0.6875,
+      "cls": 1
+    }
+  ],
+  "low_confidence_boxes": [
+    {
+      "conf": 0.5975703001022339,
+      "mask_ratio": 0.11304347826086956,
+      "cls": 1
+    },
+    {
+      "conf": 0.26965171098709106,
+      "mask_ratio": 0.1261682242990654,
+      "cls": 1
+    }
+  ]
+}

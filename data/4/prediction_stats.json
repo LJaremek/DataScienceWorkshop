@@ -1,0 +1,15 @@
+{
+  "stats": {
+    "mask_coverage_pct": 0.0,
+    "high_conf_mask_coverage_pct": 0.0,
+    "total_detections": 0,
+    "high_confidence_boxes": 0,
+    "low_confidence_boxes": 0
+  },
+  "parameters": {
+    "mask_threshold": 0.5,
+    "mask_low_confidence": 0.1
+  },
+  "high_confidence_boxes": [],
+  "low_confidence_boxes": []
+}

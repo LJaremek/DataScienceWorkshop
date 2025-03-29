@@ -3,3 +3,5 @@
 runs/obb/predict*
 # runs/obb/train*/*.png
 # runs/obb/train*/*.jpg
+*.egg-info
+__pycache__/
