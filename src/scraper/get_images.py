@@ -9,6 +9,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium import webdriver
+from scrapers import GoogleMapsScraper, OpenStreetMapScraper
 
 to_check = [
     None,
@@ -25,49 +26,6 @@ to_check = [
     (52.198332, 20.952261),
     (52.201217, 20.945625)
 ]
-
-
-def scrap_google_map(
-        cords: tuple[float, float],
-        driver: ChromiumDriver = None,
-        path: str = "google_map.png",
-        printing: bool = False
-        ) -> None:
-
-    driver = webdriver.Chrome(
-        service=Service(ChromeDriverManager().install()),
-        options=chrome_options
-    )
-
-    url = f"https://www.google.pl/maps/@{cords[0]},{cords[1]},101m"
-    url += "/data=!3m1!1e3?entry=ttu&g_ep=EgoyMDI1MDMwMi4wIKXMDSoASAFQAw%3D%3D"
-    driver.get(url)
-
-    time.sleep(5)
-
-    try:
-        accept_button = WebDriverWait(driver, 5).until(
-            EC.element_to_be_clickable(
-                (By.XPATH, "//button[contains(., 'Zaakceptuj wszystko')]")
-            )
-        )
-        accept_button.click()
-
-        if printing:
-            print("Kliknięto 'Zaakceptuj wszystko'.")
-
-        time.sleep(3)
-    except Exception as e:
-        if printing:
-            msg = "Nie znaleziono przycisku zgód lub już zaakceptowane: "
-            msg += str(e)
-            print(msg)
-
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    driver.save_screenshot(path)
-
-    if printing:
-        print("Path:", path)
 
 
 def scrap_open_street_map(
@@ -114,10 +72,15 @@ if __name__ == "__main__":
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=1200,800")
-
+    google_scraper = GoogleMapsScraper(headless=False)
+    # open_street_map_scraper = OpenStreetMapScraper(headless=False)
     for index, cords in enumerate(to_check):
         if cords is None:
             continue
 
-        scrap_google_map(cords=cords, path=f"data/{index}/gm.png")
-        scrap_open_street_map(cords=cords, path=f"data/{index}/osm.png")
+        google_scraper.scrape(cords=cords, path=f"data/{index}/gm.png")
+        open_street_map_scraper = OpenStreetMapScraper(headless=False)
+        open_street_map_scraper.scrape(cords=cords, path=f"data/{index}/osm.png")
+        open_street_map_scraper.driver.quit()
+
+    google_scraper.driver.quit()
