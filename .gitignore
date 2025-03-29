@@ -1,0 +1,5 @@
+*.pt
+!runs/obb/train*/weights/*.pt
+runs/obb/predict*
+# runs/obb/train*/*.png
+# runs/obb/train*/*.jpg
