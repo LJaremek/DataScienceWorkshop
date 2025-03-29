@@ -1,10 +1,27 @@
 
 ===== Detection Summary =====
-Total detections: 0
-High confidence boxes (mask ratio ≥ 0.5): 0
-Low confidence boxes (0.1 ≤ mask ratio < 0.5): 0
+Total detections: 3
+High confidence boxes (mask ratio ≥ 0.5): 1
+Low confidence boxes (0.1 ≤ mask ratio < 0.5): 2
 
 --- Mask Coverage ---
-Total parking area covered: 0.0%
-Parking area covered by high confidence boxes: 0.0%
+Total parking area covered: 2.5%
+Parking area covered by high confidence boxes: 1.5%
+
+--- Confidence Statistics ---
+Average confidence: 0.414
+Confidence range: 0.322 - 0.546
+
+--- Mask Overlap Statistics ---
+Average mask overlap: 0.366
+Mask overlap range: 0.101 - 0.627
+
+--- Mask Ratio Distribution ---
+  0-25%: 1 boxes
+  25-50%: 1 boxes
+  50-75%: 1 boxes
+  75-100%: 0 boxes
+
+--- Class Distribution ---
+Class 1: 3 total (1 high conf, 2 low conf)
 =============================

@@ -1,15 +1,56 @@
 {
   "stats": {
-    "mask_coverage_pct": 0.0,
-    "high_conf_mask_coverage_pct": 0.0,
-    "total_detections": 0,
-    "high_confidence_boxes": 0,
-    "low_confidence_boxes": 0
+    "mask_coverage_pct": 2.473590068948648,
+    "high_conf_mask_coverage_pct": 1.5135069025087524,
+    "total_detections": 3,
+    "high_confidence_boxes": 1,
+    "low_confidence_boxes": 2,
+    "avg_confidence": 0.41421855489412945,
+    "min_confidence": 0.32215553522109985,
+    "max_confidence": 0.5463975667953491,
+    "median_confidence": 0.37410256266593933,
+    "avg_mask_ratio": 0.3663227035404198,
+    "min_mask_ratio": 0.10068259385665529,
+    "max_mask_ratio": 0.6273764258555133,
+    "high_conf_avg_confidence": 0.37410256266593933,
+    "high_conf_avg_mask_ratio": 0.6273764258555133,
+    "low_conf_avg_confidence": 0.4342765510082245,
+    "low_conf_avg_mask_ratio": 0.2357958423828731,
+    "mask_ratio_distribution": {
+      "0-25%": 1,
+      "25-50%": 1,
+      "50-75%": 1,
+      "75-100%": 0
+    },
+    "class_distribution": {
+      "1": {
+        "count": 3,
+        "high_conf": 1,
+        "low_conf": 2
+      }
+    }
   },
   "parameters": {
     "mask_threshold": 0.5,
     "mask_low_confidence": 0.1
   },
-  "high_confidence_boxes": [],
-  "low_confidence_boxes": []
+  "high_confidence_boxes": [
+    {
+      "conf": 0.37410256266593933,
+      "mask_ratio": 0.6273764258555133,
+      "cls": 1
+    }
+  ],
+  "low_confidence_boxes": [
+    {
+      "conf": 0.5463975667953491,
+      "mask_ratio": 0.10068259385665529,
+      "cls": 1
+    },
+    {
+      "conf": 0.32215553522109985,
+      "mask_ratio": 0.3709090909090909,
+      "cls": 1
+    }
+  ]
 }
