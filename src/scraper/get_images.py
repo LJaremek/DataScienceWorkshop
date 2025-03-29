@@ -9,7 +9,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium import webdriver
-from GoogleMapsScraper import GoogleMapsScraper
+from scrapers import GoogleMapsScraper, OpenStreetMapScraper
 
 to_check = [
     None,
@@ -72,11 +72,15 @@ if __name__ == "__main__":
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=1200,800")
-    google_scraper = GoogleMapsScraper(headless=True)
-    
+    google_scraper = GoogleMapsScraper(headless=False)
+    # open_street_map_scraper = OpenStreetMapScraper(headless=False)
     for index, cords in enumerate(to_check):
         if cords is None:
             continue
 
         google_scraper.scrape(cords=cords, path=f"data/{index}/gm.png")
-        scrap_open_street_map(cords=cords, path=f"data/{index}/osm.png")
+        open_street_map_scraper = OpenStreetMapScraper(headless=False)
+        open_street_map_scraper.scrape(cords=cords, path=f"data/{index}/osm.png")
+        open_street_map_scraper.driver.quit()
+
+    google_scraper.driver.quit()
