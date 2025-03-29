@@ -1,17 +1,8 @@
 import time
-import os
-
-os.environ["TF_FORCE_GPU_ALLOW_GROWTH"] = "true"  # avoid memory allocation issues
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"  # Disable TensorFlow logging
-
 from selenium.webdriver.support import expected_conditions as EC
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
-from selenium import webdriver
+from utils import create_driver
 
 
 class GoogleMapsScraper:
@@ -25,36 +16,9 @@ class GoogleMapsScraper:
             latitude (float): _description_
             headless (bool, optional): _description_. Defaults to True.
         """
-        self.driver = self._create_driver(headless=headless)
+        self.driver = create_driver(headless=headless)
 
-    def _create_driver(self, headless: bool = True) -> webdriver.Chrome:
-        """TODO"""
-        chrome_options = Options()
-        if headless:
-            chrome_options.add_argument("--headless")
-        chrome_options.add_argument("--window-size=1200,800")
-
-        # Set language to Polish
-        chrome_options.add_argument("--lang=pl")
-        chrome_options.add_experimental_option(
-            "prefs",
-            {
-                "intl.accept_languages": "pl,pl_PL",
-                "profile.default_content_setting_values.geolocation": 2,  # Block geolocation
-            },
-        )
-        chrome_options.add_argument(
-            "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0 (pl-PL)"
-        )
-
-        chrome_options.add_argument("--disable-gpu")
-        chrome_options.add_argument("--no-sandbox")
-        chrome_options.add_argument("--disable-dev-shm-usage")
-        driver = webdriver.Chrome(
-            service=Service(ChromeDriverManager().install()), options=chrome_options
-        )
-        return driver
-
+    
     def scrape(self, cords: tuple[float, float], path: str) -> None:
         latitude, longitude = cords
         self.driver.get(
