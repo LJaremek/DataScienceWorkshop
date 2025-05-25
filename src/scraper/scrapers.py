@@ -2,7 +2,7 @@ import time
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
-from utils import create_driver
+from src.scraper.utils import create_driver
 
 
 class GoogleMapsScraper:
