@@ -18,7 +18,6 @@ class GoogleMapsScraper:
         """
         self.driver = create_driver(headless=headless)
 
-    
     def scrape(self, cords: tuple[float, float], path: str) -> None:
         latitude, longitude = cords
         self.driver.get(
@@ -30,7 +29,7 @@ class GoogleMapsScraper:
         self._remove_elements_by_class()
         self._remove_minimap()
         # wait 120 seconds for the map to load
-        time.sleep(120)
+        # time.sleep(120)
         self.driver.save_screenshot(path)
 
     def _click_accept(self):
@@ -72,22 +71,104 @@ class GoogleMapsScraper:
 
             # Now look for the button
             print("Looking for Więcej button...")
-            try:
-                button = WebDriverWait(self.driver, 5).until(
-                    EC.element_to_be_clickable(
-                        (By.XPATH, "//button[contains(., 'Więcej')]")
-                    )
-                )
-                button.click()
-                print("Clicked on layer switcher button.")
-            except Exception as e:
-                print(f"Could not find the Więcej button: {e} using XPath. Will try class name.")
-                
-            time.sleep(0.2)
+            found_wiecej_button = False
 
-            # find and click the checkbox
+            # try:
+            #     button = WebDriverWait(self.driver, 5).until(
+            #         EC.element_to_be_clickable(
+            #             (By.XPATH, "//button[contains(., 'Więcej')]")
+            #         )
+            #     )
+            #     button.click()
+            #     found_wiecej_button = True
+            #     print("Clicked on layer switcher button.")
+            # except Exception as e:
+            #     print(f"Could not find the Więcej button: {e} using XPath. Will try class name.")
+
+            # time.sleep(0.2)
+
+            # if not found_wiecej_button:
+            #     print("Trying to find Więcej button by class name...")
+            #     try:
+            #         print(
+            #             "Layer switcher (wiecej button) not found by XPath, trying by class name."
+            #         )
+            #         button = WebDriverWait(self.driver, 5).until(
+            #             EC.element_to_be_clickable(
+            #                 (By.CLASS_NAME, "hYkU8c")
+            #             )
+            #         )
+            #         button.click()
+            #         print("Clicked on layer switcher button by class name.")
+            #         found_wiecej_button = True
+            #     except Exception as e:
+            #         print(f"Could not find the Więcej button by class name: {e}")
+
+            # if not found_wiecej_button:
+            #     # try moving mouse by 500 pixels to teh right from target_x and target_y
+            #     print("Layer switcher (wiecej button) not found by class name, trying to move mouse.")
+            #     OFFSET_X = 520
+            #     self.driver.execute_script(
+            #         f"""
+            #         var event = new MouseEvent('mousemove', {{
+            #             'view': window,
+            #             'bubbles': true,
+            #             'cancelable': true,
+            #             'clientX': {target_x + OFFSET_X},
+            #             'clientY': {target_y}
+            #         }});
+            #         document.elementFromPoint({target_x + OFFSET_X}, {target_y}).dispatchEvent(event);
+            #     """
+            #     )
+            #     print(
+            #         f"Moved cursor to position (x: {target_x + OFFSET_X}, y: {target_y})"
+            #     )
+            #     # press left mouse button down and instantly release it
+
+            #     self.driver.execute_script(
+            #         f"""
+            #         var event = new MouseEvent('mousedown', {{
+            #             'view': window,
+            #             'bubbles': true,
+            #             'cancelable': true,
+            #             'clientX': {target_x + OFFSET_X},
+            #             'clientY': {target_y}
+            #         }});
+            #         document.elementFromPoint({target_x + OFFSET_X}, {target_y}).dispatchEvent(event);
+            #     """
+            #     )
+            #     self.driver.execute_script(
+            #         f"""
+            #         var event = new MouseEvent('mouseup', {{
+            #             'view': window,
+            #             'bubbles': true,
+            #             'cancelable': true,
+            #             'clientX': {target_x + OFFSET_X},
+            #             'clientY': {target_y}
+            #         }});
+            #         document.elementFromPoint({target_x + OFFSET_X}, {target_y}).dispatchEvent(event);
+            #     """
+            #     )
+            #     print(
+            #         f"Clicked on layer switcher button by moving mouse to position (x: {target_x + OFFSET_X}, y: {target_y})"
+            #     )
+
+            # the layer switer executes jsaction layerswitcher.quick.more
+            # so we can just execute it directly
+
+            if not found_wiecej_button:
+                try:
+                    print("Layer switcher (wiecej button) not found, executing jsaction directly.")
+                    self.driver.execute_script(
+                        "document.querySelector('button[jsaction=\"layerswitcher.quick.more\"]').click();"
+                    )
+                    print("Clicked on layer switcher button by executing jsaction.")
+                    found_wiecej_button = True
+                except Exception as e:
+                    print(f"Could not click on layer switcher button by executing jsaction: {e}")
+
             try:
-                checkbox = WebDriverWait(self.driver, 10).until(
+                checkbox = WebDriverWait(self.driver, 5).until(
                     EC.element_to_be_clickable(
                         (
                             By.XPATH,
@@ -96,26 +177,18 @@ class GoogleMapsScraper:
                     )
                 )
             except Exception as e:
-                print(f"Could not find checkbox by class name.")
-                # If the checkbox is not found by XPath, we can
+                print(f"Could not find checkbox.")
 
-            # also attempt to findid it using class hYkU8c
+            if checkbox:
+                print("Checkbox found, checking its state...")
+                if checkbox.get_attribute("aria-checked") == "true":
+                    checkbox.click()
+                    print("Unchecked labels.")
+                else:
+                    print("Labels checkbox is already unchecked.")
 
-            if not checkbox:
-                print("Checkbox not found by XPath, trying by class name.")
-                checkbox = WebDriverWait(self.driver, 10).until(
-                    EC.element_to_be_clickable(
-                        (By.CLASS_NAME, "hYkU8c")
-                    )
-                )
+                time.sleep(0.2)
 
-            if checkbox.get_attribute("aria-checked") == "true":
-                checkbox.click()
-                print("Unchecked labels.")
-            else:
-                print("Labels checkbox is already unchecked.")
-
-            time.sleep(0.2)
         except Exception as e:
             print(f"Could not uncheck labels button {e}")
 
@@ -144,7 +217,7 @@ class GoogleMapsScraper:
             "bJzME tTVLSc",  # likely a UI panel or widget
             "app-vertical-widget-holder Hk4XGb",  # vertical widget holder
             "app-bottom-content-anchor HdXONd",  # bottom content anchor
-            "gb_Qe",  # login button
+            "gb_Re",  # login button
             "scene-footer",  # footer
             "hUbt4d-watermark",  # google logo at the bottom
             "ZhtFke",  # another UI element
@@ -237,7 +310,7 @@ class OpenStreetMapScraper:
             _remove(class_name)
         for _ in range(8):
             _remove("leaflet-control")        
-                
+
 def main():
     longitude = 21.0103057
     latitude = 52.2203848

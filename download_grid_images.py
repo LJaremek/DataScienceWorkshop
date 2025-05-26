@@ -5,7 +5,7 @@ from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import threading
 
-GRID_CSV = 'warsaw_grid_1.csv'
+GRID_CSV = 'warsaw_grid.csv'
 DATA_DIR = 'data'
 
 # Thread-local storage for scraper instances
