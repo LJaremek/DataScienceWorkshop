@@ -6,3 +6,6 @@ runs/obb/predict*
 *.egg-info
 __pycache__/
 data_dirty/*
+data_old/*
+data/*
+data.zip

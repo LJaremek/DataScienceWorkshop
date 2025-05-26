@@ -13,7 +13,7 @@ thread_local = threading.local()
 
 def get_scrapers():
     if not hasattr(thread_local, 'google_scraper'):
-        thread_local.google_scraper = GoogleMapsScraper(headless=False)
+        thread_local.google_scraper = GoogleMapsScraper(headless=True)
     if not hasattr(thread_local, 'osm_scraper'):
         thread_local.osm_scraper = OpenStreetMapScraper(headless=True)
     return thread_local.google_scraper, thread_local.osm_scraper
@@ -32,17 +32,17 @@ def process_cell(row):
         return f"Cell {cell_id}: images already exist, skipping."
     google_scraper, osm_scraper = get_scrapers()
     google_scraper.scrape((lat, lon), gm_path)
-    # osm_scraper.scrape((lat, lon), osm_path)
-    # with open(coords_path, 'w') as f:
-    #     f.write(f'{{"latitude": {lat}, "longitude": {lon}}}')
-    # return f"Downloaded images for cell {cell_id} at ({lat}, {lon})"
+    osm_scraper.scrape((lat - 0.000009*7.5, lon), osm_path)
+    with open(coords_path, 'w') as f:
+        f.write(f'{{"latitude": {lat}, "longitude": {lon}}}')
+    return f"Downloaded images for cell {cell_id} at ({lat}, {lon})"
 
 def main():
     with open(GRID_CSV, newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         grid = list(reader)
 
-    max_workers = min(24, os.cpu_count())  # Adjust as needed
+    max_workers = min(30, os.cpu_count())  # Adjust as needed
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = [executor.submit(process_cell, row) for row in grid]
         for f in tqdm(as_completed(futures), total=len(futures)):

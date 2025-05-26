@@ -251,17 +251,16 @@ class OpenStreetMapScraper:
         """
         self.driver = create_driver(headless=headless)
 
-
     def scrape(self, cords: tuple[float, float], path: str) -> None:
         latitude, longitude = cords
         self.driver.get(
             f"https://www.openstreetmap.org/#map=19/{latitude}/{longitude}"
         )
-        self._click_accept()
+        # self._click_accept()
         time.sleep(2)
         self._remove_elements_by_class()
+        # time.sleep(1200)
         self.driver.save_screenshot(path)
-        
 
     def _click_accept(self):
         try:
@@ -275,8 +274,7 @@ class OpenStreetMapScraper:
             time.sleep(1)
         except Exception as e:
             print("Could not find the accept button:", e)
-            
-    
+
     def _remove_elements_by_class(self):
         def _remove(class_name):
             try:
@@ -303,7 +301,7 @@ class OpenStreetMapScraper:
             "d-flex bg-body text-nowrap closed z-3",
             "welcome position-relative p-3",
             "leaflet-control-attribution leaflet-control",
-            "d-flex gap-2"
+            "d-flex gap-2",
         ]
 
         for class_name in elements_to_remove_by_class:
