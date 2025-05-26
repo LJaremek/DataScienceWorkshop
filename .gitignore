@@ -5,3 +5,4 @@ runs/obb/predict*
 # runs/obb/train*/*.jpg
 *.egg-info
 __pycache__/
+data_dirty/*

@@ -29,6 +29,8 @@ class GoogleMapsScraper:
         self._disable_labels()
         self._remove_elements_by_class()
         self._remove_minimap()
+        # wait 120 seconds for the map to load
+        time.sleep(120)
         self.driver.save_screenshot(path)
 
     def _click_accept(self):
@@ -69,24 +71,43 @@ class GoogleMapsScraper:
             )  # Increased wait time to make sure hover effect is triggered
 
             # Now look for the button
-            button = WebDriverWait(self.driver, 5).until(
-                EC.element_to_be_clickable(
-                    (By.XPATH, "//button[contains(., 'Więcej')]")
+            print("Looking for Więcej button...")
+            try:
+                button = WebDriverWait(self.driver, 5).until(
+                    EC.element_to_be_clickable(
+                        (By.XPATH, "//button[contains(., 'Więcej')]")
+                    )
                 )
-            )
-            button.click()
-            print("Clicked on layer switcher button.")
+                button.click()
+                print("Clicked on layer switcher button.")
+            except Exception as e:
+                print(f"Could not find the Więcej button: {e} using XPath. Will try class name.")
+                
             time.sleep(0.2)
 
             # find and click the checkbox
-            checkbox = WebDriverWait(self.driver, 10).until(
-                EC.element_to_be_clickable(
-                    (
-                        By.XPATH,
-                        "//button[@role='checkbox' and .//label[contains(text(), 'Etykiety')]]",
+            try:
+                checkbox = WebDriverWait(self.driver, 10).until(
+                    EC.element_to_be_clickable(
+                        (
+                            By.XPATH,
+                            "//button[@role='checkbox' and .//label[contains(text(), 'Etykiety')]]",
+                        )
                     )
                 )
-            )
+            except Exception as e:
+                print(f"Could not find checkbox by class name.")
+                # If the checkbox is not found by XPath, we can
+
+            # also attempt to findid it using class hYkU8c
+
+            if not checkbox:
+                print("Checkbox not found by XPath, trying by class name.")
+                checkbox = WebDriverWait(self.driver, 10).until(
+                    EC.element_to_be_clickable(
+                        (By.CLASS_NAME, "hYkU8c")
+                    )
+                )
 
             if checkbox.get_attribute("aria-checked") == "true":
                 checkbox.click()
