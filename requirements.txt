@@ -65,3 +65,5 @@ ultralytics-thop==2.0.14
 urllib3==2.3.0
 wcwidth @ file:///home/conda/feedstock_root/build_artifacts/wcwidth_1733231326287/work
 zipp @ file:///home/conda/feedstock_root/build_artifacts/zipp_1732827521216/work
+geopandas
+shapely

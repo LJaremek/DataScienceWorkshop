@@ -1,10 +1,10 @@
 #!/bin/bash
 # filepath: c:/Users/szymo/WUT/Masters/DataScienceWorkshop/DataScienceWorkshop/extract_parking_from_data.sh
 
-echo "Starting processing of cropped_gm.png files..."
+echo "Starting processing of gm.png files..."
 
-# Find all cropped_osmcould.png files recursively in data directory
-find "data" -name "cropped_osmcould.png" -type f | while read file; do
+# Find all osm.png files recursively in data directory
+find "data" -name "osm.png" -type f | while read file; do
     echo "Processing: $file"
     python src/preprocessing/parking_extractor.py "$file"
     

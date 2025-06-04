@@ -20,21 +20,24 @@ def process_directory(
     stats_txt_pattern = os.path.join(dir_path, "prediction_stats_*.txt")
 
     # Check if output files already exist
-    vis_gm_exists = os.path.exists(vis_gm_path)
-    vis_osm_exists = os.path.exists(vis_osm_path)
+    # vis_gm_exists = os.path.exists(vis_gm_path)
+    # vis_osm_exists = os.path.exists(vis_osm_path)
+
+    vis_gm_exists, vis_osm_exists = False, False # force to reprocess
+
     stats_json_exists = len(glob.glob(stats_json_pattern)) > 0
     stats_txt_exists = len(glob.glob(stats_txt_pattern)) > 0
 
     # Skip directory if all outputs already exist
-    if vis_gm_exists and vis_osm_exists and (stats_json_exists or stats_txt_exists):
-        print(f"Skipping {dir_path} - all outputs already exist")
-        return False
+    # if vis_gm_exists and vis_osm_exists and (stats_json_exists or stats_txt_exists):
+    #     print(f"Skipping {dir_path} - all outputs already exist")
+    # return False
 
     print(f"Processing {dir_path}...")
 
     try:
         # Check required input files exist
-        required_files = ["cropped_gm.png", "cropped_osm.png", "cropped_osm_mask.png"]
+        required_files = ["gm.png", "osm.png", "osm_mask.png"]
         missing_files = [
             f for f in required_files if not os.path.exists(os.path.join(dir_path, f))
         ]
@@ -48,9 +51,9 @@ def process_directory(
         # Initialize the predictor
         predictor = Predictor(
             img_data_folder=dir_path,
-            image_gm="cropped_gm.png",
-            image_osm="cropped_osm.png",
-            parking_mask="cropped_osm_mask.png",
+            image_gm="gm.png",
+            image_osm="osm.png",
+            parking_mask="osm_mask.png",
             model_type=model_type,
         )
 
@@ -118,7 +121,7 @@ def parse_args():
     parser.add_argument(
         "--model-type",
         type=str,
-        default="LARGE",
+        default="MEDIUM",
         choices=["NANO", "MEDIUM", "LARGE"],
         help="Model type to use (NANO, MEDIUM, or LARGE) (default: LARGE)",
     )
